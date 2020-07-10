@@ -1,19 +1,57 @@
 import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { firebase } from '../../firebase/config'
 import styles from './styles';
+
+// firebase.firestore.setLogLevel('debug')
 
 export default function LoginScreen({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [isLoading, setLoading] = useState(false)
 
     const onFooterLinkPress = () => {
         navigation.navigate('Registration')
     }
 
     const onLoginPress = () => {
+        setLoading(true)
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then((response) => {
+                const uid = response.user.uid
+                const usersRef = firebase.firestore().collection('users')
+                usersRef
+                    .doc(uid)
+                    .get()
+                    .then(firestoreDocument => {
+                        setLoading(false)
+                        if (!firestoreDocument.exists) {
+                            alert("User does not exist anymore.")
+                            return;
+                        }
+                        const user = firestoreDocument.data()
+                        navigation.navigate('Home', {user})
+                    })
+                    .catch(error => {
+                        setLoading(false)
+                        alert(error)
+                    });
+            })
+            .catch(error => {
+                setLoading(false)
+                alert(error)
+            })
     }
-
+    if (isLoading) {
+        return (
+            <View style={styles.container}>
+                <Text style={{alignSelf: "center", marginTop: "15%", fontSize: 20}}>Loading...</Text>
+            </View>
+        )
+    }
     return (
         <View style={styles.container}>
             <KeyboardAwareScrollView
