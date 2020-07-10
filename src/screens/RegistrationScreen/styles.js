@@ -21,13 +21,13 @@ export default StyleSheet.create({
         overflow: 'hidden',
         backgroundColor: 'white',
         marginTop: 10,
-        marginBottom: 10,
+        marginBottom: 5,
         marginLeft: 30,
         marginRight: 30,
         paddingLeft: 16
     },
     button: {
-        backgroundColor: '#788eec',
+        backgroundColor: '#FC7A0C',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
@@ -51,7 +51,7 @@ export default StyleSheet.create({
         color: '#2e2e2d'
     },
     footerLink: {
-        color: "#788eec",
+        color: "#213266",
         fontWeight: "bold",
         fontSize: 16
     }

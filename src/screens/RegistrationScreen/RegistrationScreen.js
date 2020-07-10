@@ -9,15 +9,21 @@ export default function RegistrationScreen({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [passwordError, passwordMatchErr] = useState('') 
 
     const onFooterLinkPress = () => {
         navigation.navigate('Login')
     }
 
     const onRegisterPress = () => {
+<<<<<<< HEAD
         if (password !== confirmPassword) {
             alert("Passwords don't match.")
             return
+=======
+        if(password !== confirmPassword) {
+            passwordMatchErr("Password does not match")
+>>>>>>> eea7107144ac30d9a52b3b4d6699b7ea7a0141f3
         }
         firebase
             .auth()
@@ -63,7 +69,7 @@ export default function RegistrationScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-                <TextInput
+               <TextInput
                     style={styles.input}
                     placeholder='E-mail'
                     placeholderTextColor="#aaaaaa"
@@ -92,6 +98,7 @@ export default function RegistrationScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
+                <Text style={{ color: 'red', marginLeft: 30 }}>{passwordError}</Text>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => onRegisterPress()}>
