@@ -16,14 +16,8 @@ export default function RegistrationScreen({navigation}) {
     }
 
     const onRegisterPress = () => {
-<<<<<<< HEAD
-        if (password !== confirmPassword) {
-            alert("Passwords don't match.")
-            return
-=======
         if(password !== confirmPassword) {
             passwordMatchErr("Password does not match")
->>>>>>> eea7107144ac30d9a52b3b4d6699b7ea7a0141f3
         }
         firebase
             .auth()
