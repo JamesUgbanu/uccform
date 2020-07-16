@@ -26,5 +26,10 @@
     "web": "expo web",
     "eject": "expo eject"
   },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/NunitoSans"
+    ]
+  },
   "private": true
 }

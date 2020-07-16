@@ -1,70 +1,196 @@
 import React, { useState } from 'react';
 import { TextInput, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Container, Content} from 'native-base'
+import { Container, Content } from 'native-base';
 import styles from './styles';
-import FooterTab from '../Footer'
+import Date from '../Date';
+import GenderPicker from '../GenderPicker';
+import MaritalPicker from '../../screens/MaritalStatusPicker';
+import DisablePicker from '../../screens/DisabilityPicker';
+import VeteranPicker from '../../screens/VeteranPicker';
+import EthnicityPicker from '../EthnicityPicker';
+import FamilyTypePicker from '../FamilyTypePicker';
+import FamilyIncomePicker from '../FamilyIncomePicker';
+import EducationPicker from '../EducationPicker';
+import HousingPicker from '../HousingPicker';
+import EnergyAssistancePicker from '../EnergyAssistancePicker';
+import IncomePicker from '../IncomePicker';
+import FooterTab from '../Footer';
 
 export default function StandardFormScreen() {
-  const [fullName, setFullName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [passwordError, passwordMatchErr] = useState('') 
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [streetAddress, setStreetAddress] = useState('');
+  const [telephone, setTelephone] = useState('');
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const [emergencyContact, setEmergencyContact] = useState('');
+  const [relationship, setRelationship] = useState('');
+  const [address, setAddress] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [gender, setGender] = useState('');
+  const [maritalStatus, setMaritalStatus] = useState('');
+  const [disabled, setDisabled] = useState('');
+  const [veteran, setVeteran] = useState('');
+  const [ethnicity, setEthnicity] = useState('');
+  const [familyType, setFamilyType] = useState('');
+  // alert(familyType);
 
-    return (
-      <Container>
-          <Content>
-<View style={styles.container}>
-            <KeyboardAwareScrollView
-                style={{ flex: 1, width: '100%' }}
-                keyboardShouldPersistTaps="always">
-                <TextInput
-                    style={styles.input}
-                    placeholder='Full Name'
-                    placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setFullName(text)}
-                    value={fullName}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-               <TextInput
-                    style={styles.input}
-                    placeholder='E-mail'
-                    placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setEmail(text)}
-                    value={email}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor="#aaaaaa"
-                    secureTextEntry
-                    placeholder='Password'
-                    onChangeText={(text) => setPassword(text)}
-                    value={password}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor="#aaaaaa"
-                    secureTextEntry
-                    placeholder='Confirm Password'
-                    onChangeText={(text) => setConfirmPassword(text)}
-                    value={confirmPassword}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                <TouchableOpacity
-                    style={styles.button}
-                    >
-                </TouchableOpacity>
-            </KeyboardAwareScrollView>
+  /*  const DisablePicker = (value) => {
+    alert(value);
+  }; */
+  return (
+    <Container>
+      <Content>
+        <View style={styles.container}>
+          <KeyboardAwareScrollView
+            style={{ flex: 1, width: '100%' }}
+            keyboardShouldPersistTaps='always'
+          >
+            <TextInput
+              style={styles.input}
+              placeholder='Full Name'
+              placeholderTextColor='#aaaaaa'
+              onChangeText={(text) => setFullName(text)}
+              value={fullName}
+              underlineColorAndroid='transparent'
+              autoCapitalize='none'
+            />
+
+            <TextInput
+              style={styles.input}
+              placeholder='E-mail'
+              placeholderTextColor='#aaaaaa'
+              onChangeText={(text) => setEmail(text)}
+              value={email}
+              underlineColorAndroid='transparent'
+              autoCapitalize='none'
+            />
+
+            <TextInput
+              style={styles.input}
+              placeholderTextColor='#aaaaaa'
+              placeholder='Street Address'
+              onChangeText={(text) => setStreetAddress(text)}
+              value={streetAddress}
+              underlineColorAndroid='transparent'
+              autoCapitalize='none'
+            />
+            <TextInput
+              style={styles.input}
+              placeholderTextColor='#aaaaaa'
+              placeholder='Telephone'
+              onChangeText={(text) => setTelephone(text)}
+              value={telephone}
+              underlineColorAndroid='transparent'
+              autoCapitalize='none'
+            />
+            <TextInput
+              style={styles.input}
+              placeholderTextColor='#aaaaaa'
+              placeholder='Street'
+              onChangeText={(text) => setStreet(text)}
+              value={street}
+              underlineColorAndroid='transparent'
+              autoCapitalize='none'
+            />
+            <TextInput
+              style={styles.input}
+              placeholderTextColor='#aaaaaa'
+              placeholder='City'
+              onChangeText={(text) => setCity(text)}
+              value={city}
+              underlineColorAndroid='transparent'
+              autoCapitalize='none'
+            />
+            <TextInput
+              style={styles.input}
+              placeholderTextColor='#aaaaaa'
+              placeholder='Zip Code'
+              onChangeText={(text) => setZipCode(text)}
+              value={zipCode}
+              underlineColorAndroid='transparent'
+              autoCapitalize='none'
+            />
+            <TextInput
+              style={styles.input}
+              placeholderTextColor='#aaaaaa'
+              placeholder='Emergency Contact'
+              onChangeText={(text) => setEmergencyContact(text)}
+              value={emergencyContact}
+              underlineColorAndroid='transparent'
+              autoCapitalize='none'
+            />
+            <TextInput
+              style={styles.input}
+              placeholderTextColor='#aaaaaa'
+              placeholder='Relationship'
+              onChangeText={(text) => setRelationship(text)}
+              value={relationship}
+              underlineColorAndroid='transparent'
+              autoCapitalize='none'
+            />
+            <TextInput
+              style={styles.input}
+              placeholderTextColor='#aaaaaa'
+              placeholder='Address'
+              onChangeText={(text) => setAddress(text)}
+              value={address}
+              underlineColorAndroid='transparent'
+              autoCapitalize='none'
+            />
+            <TextInput
+              style={styles.input}
+              placeholderTextColor='#aaaaaa'
+              placeholder='Phone Number'
+              onChangeText={(text) => setPhoneNumber(text)}
+              value={phoneNumber}
+              underlineColorAndroid='transparent'
+              autoCapitalize='none'
+            />
+
+            <GenderPicker
+              onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
+            />
+            {/* <MaritalPicker
+              onValueChange={(itemValue, itemIndex) =>
+                setMaritalStatus(itemValue)
+              }
+            />
+            <DisablePicker
+              onValueChange={(itemValue, itemIndex) => setDisabled(itemValue)}
+            />
+            <VeteranPicker
+              onValueChange={(itemValue, itemIndex) => setVeteran(itemValue)}
+            />
+
+            <EthnicityPicker
+              onValueChange={(itemValue, itemIndex) => setEthnicity(itemValue)}
+            />
+
+            <FamilyTypePicker
+              onValueChange={(itemValue, itemIndex) => setFamilyType(itemValue)}
+            /> */}
+
+            {/* <SexPicker />
+            <MaritalPicker />
+            <DisablePicker />
+            <VeteranPicker />
+            <EthnicityPicker />
+            <FamilyTypePicker />
+            <FamilyIncomePicker />
+            <EducationPicker />
+            <HousingPicker />
+            <EnergyAssistancePicker />
+            <IncomePicker />
+            <Date /> */}
+            <TouchableOpacity style={styles.button}></TouchableOpacity>
+          </KeyboardAwareScrollView>
         </View>
-        </Content>
-        <FooterTab />
-        </Container>
-    );
-  }
+      </Content>
+
+      <FooterTab />
+    </Container>
+  );
+}
