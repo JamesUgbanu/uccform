@@ -10,7 +10,6 @@ import {
 } from './src/screens';
 import { decode, encode } from 'base-64';
 import { firebase } from './src/firebase/config';
-import Spinner from './src/screens/Spinner';
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -26,6 +25,12 @@ export default function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+
+    Expo.Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+    });
+
     const usersRef = firebase.firestore().collection('users');
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -46,9 +51,9 @@ export default function App() {
     });
   }, []);
 
-  if (loading) {
-    return <Spinner />;
-  }
+  // if (loading) {
+  //   return <Spinner />;
+  // }
 
   return (
     <NavigationContainer>

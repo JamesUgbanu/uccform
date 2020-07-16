@@ -6,7 +6,6 @@ export default class SpinnerClass extends Component {
   render() {
     return (
       <Container>
-        <Header />
         <Content>
           <Spinner color='blue' />
         </Content>

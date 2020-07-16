@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { TextInput, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Container, Content } from 'native-base';
+import { Container, Content, Title, Picker } from 'native-base';
+import Expo from "expo";
 import styles from './styles';
 import Date from '../Date';
-import GenderPicker from '../GenderPicker';
 import MaritalPicker from '../../screens/MaritalStatusPicker';
 import DisablePicker from '../../screens/DisabilityPicker';
 import VeteranPicker from '../../screens/VeteranPicker';
@@ -35,8 +35,8 @@ export default function StandardFormScreen() {
   const [veteran, setVeteran] = useState('');
   const [ethnicity, setEthnicity] = useState('');
   const [familyType, setFamilyType] = useState('');
-  // alert(familyType);
 
+  alert(gender)
   /*  const DisablePicker = (value) => {
     alert(value);
   }; */
@@ -150,9 +150,17 @@ export default function StandardFormScreen() {
               autoCapitalize='none'
             />
 
-            <GenderPicker
-              onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
-            />
+          <View style={{flex: 1, paddingTop: 10, marginLeft: 30,marginRight: 30,}}>
+                <Picker
+                  style={{ height: 50 }}
+                  selectedValue={gender}
+                  onValueChange={(value) => setGender(value)}
+                >
+                  <Picker.Item label='Select Gender' value='Select Gender' />
+                  <Picker.Item label='Male' value='Male' />
+                  <Picker.Item label='Female' value='Female' />
+                </Picker>
+              </View>
             {/* <MaritalPicker
               onValueChange={(itemValue, itemIndex) =>
                 setMaritalStatus(itemValue)
@@ -185,7 +193,7 @@ export default function StandardFormScreen() {
             <EnergyAssistancePicker />
             <IncomePicker />
             <Date /> */}
-            <TouchableOpacity style={styles.button}></TouchableOpacity>
+            <TouchableOpacity style={styles.button}><Title>Submit</Title></TouchableOpacity>
           </KeyboardAwareScrollView>
         </View>
       </Content>
