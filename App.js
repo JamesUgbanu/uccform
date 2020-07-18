@@ -25,12 +25,11 @@ export default function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-
-    Expo.Font.loadAsync({
+    /*   Expo.Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
     });
-
+ */
     const usersRef = firebase.firestore().collection('users');
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {

@@ -3,7 +3,7 @@ import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { firebase } from '../../firebase/config';
 import styles from './styles';
-import Spinner from '../Spinner'
+import Spinner from '../Spinner';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -45,10 +45,12 @@ export default function LoginScreen({ navigation }) {
       });
   };
   if (isLoading) {
-        return (
-            <Spinner style={{alignSelf: "center", marginTop: "15%", fontSize: 20}} />
-        )
-    }
+    return (
+      <Spinner
+        style={{ alignSelf: 'center', marginTop: '15%', fontSize: 20 }}
+      />
+    );
+  }
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView
