@@ -32,22 +32,22 @@ export default function LoginScreen({ navigation }) {
               return;
             }
             const user = firestoreDocument.data();
-            navigation.navigate('Home', { user });
+            //navigation.navigate('Home', { user });
           })
           .catch((error) => {
             setLoading(false);
-            alert(error);
+            console.log(error);
           });
       })
       .catch((error) => {
         setLoading(false);
-        alert(error);
+        console.log(error);
       });
   };
   if (isLoading) {
     return (
       <Spinner
-        style={{ alignSelf: 'center', marginTop: '15%', fontSize: 20 }}
+        style={{ alignSelf: 'center', marginTop: '35%' }}
       />
     );
   }

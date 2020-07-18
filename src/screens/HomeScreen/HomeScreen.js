@@ -17,13 +17,13 @@ export default function HomeScreen({ navigation }) {
             <Button
               onPress={() => navigation.navigate('Standard Form')}
               full
-              style={{ paddingTop: 50, paddingBottom: 50, marginTop: 20 }}
+              style={{ paddingTop: 50, paddingBottom: 50, marginTop: 20, marginRight: 10, marginLeft: 10, borderRadius: 10 }}
             >
               <Text style={styles.customText}>UCC Standard Form</Text>
             </Button>
             <Button
               full
-              style={{ paddingTop: 50, paddingBottom: 50, marginTop: 20 }}
+              style={{ paddingTop: 50, paddingBottom: 50, marginTop: 20, marginRight: 10, marginLeft: 10, borderRadius: 10 }}
             >
               <Text>UCC Standard Form 2</Text>
             </Button>

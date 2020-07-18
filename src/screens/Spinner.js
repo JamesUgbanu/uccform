@@ -6,7 +6,7 @@ export default class SpinnerClass extends Component {
   render() {
     return (
       <Container>
-        <Content>
+        <Content style={{ alignSelf: 'center', marginTop: '50%' }}>
           <Spinner color='blue' />
         </Content>
       </Container>

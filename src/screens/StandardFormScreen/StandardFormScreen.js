@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { TextInput, TouchableOpacity, View } from 'react-native';
+import { TextInput, TouchableOpacity, View, Text } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Container, Content, Title, Picker } from 'native-base';
+import { Container, Content, Picker } from 'native-base';
 import { firebase } from '../../firebase/config';
 import styles from './styles';
 import FooterTab from '../Footer';
+import Spinner from '../Spinner';
 
 export default function StandardFormScreen() {
   const [fullName, setFullName] = useState('');
@@ -29,6 +30,7 @@ export default function StandardFormScreen() {
   const [housing, setHousing] = useState('');
   const [energyAssistance, setEnergyAssistance] = useState('');
   const [income, setIncome] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   const [entities, setEntities] = useState([]);
 
@@ -51,6 +53,7 @@ export default function StandardFormScreen() {
     );
   }, []);
   const onSubmitPress = () => {
+    setLoading(true);
     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
     const data = {
       fullName,
@@ -81,18 +84,21 @@ export default function StandardFormScreen() {
     entityRef
       .add(data)
       .then((_doc) => {
+        setLoading(false);
         setEntityText('');
         Keyboard.dismiss();
       })
       .catch((error) => {
-        alert(error);
+        setLoading(false);
+        console.log(error);
       });
   };
 
-  // alert(gender);
-  /*  const DisablePicker = (value) => {
-    alert(value);
-  }; */
+  if (isLoading) {
+    return (
+      <Spinner />
+    );
+  }
   return (
     <Container>
       <Content>
@@ -441,12 +447,11 @@ export default function StandardFormScreen() {
             </View>
 
             <TouchableOpacity style={styles.button} onPress={onSubmitPress}>
-              <Title>Submit</Title>
+              <Text>Submit</Text>
             </TouchableOpacity>
           </KeyboardAwareScrollView>
         </View>
       </Content>
-
       <FooterTab />
     </Container>
   );

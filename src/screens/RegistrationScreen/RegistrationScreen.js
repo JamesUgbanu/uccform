@@ -3,6 +3,7 @@ import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { firebase } from '../../firebase/config';
 import styles from './styles';
+import Spinner from '../Spinner';
 
 export default function RegistrationScreen({ navigation }) {
   const [fullName, setFullName] = useState('');
@@ -10,12 +11,14 @@ export default function RegistrationScreen({ navigation }) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, passwordMatchErr] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   const onFooterLinkPress = () => {
     navigation.navigate('Login');
   };
 
   const onRegisterPress = () => {
+    setLoading(true);
     if (password !== confirmPassword) {
       passwordMatchErr('Password does not match');
     }
@@ -34,6 +37,7 @@ export default function RegistrationScreen({ navigation }) {
           .doc(uid)
           .set(data)
           .then(() => {
+            setLoading(false);
             navigation.navigate('Home', { user: data });
           })
           .catch((error) => {
@@ -41,9 +45,16 @@ export default function RegistrationScreen({ navigation }) {
           });
       })
       .catch((error) => {
-        alert(error);
+        setLoading(false);
+        console.log(error);
       });
   };
+
+  if (isLoading) {
+    return (
+      <Spinner />
+    );
+  }
 
   return (
     <View style={styles.container}>
