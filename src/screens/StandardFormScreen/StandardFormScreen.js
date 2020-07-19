@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { TextInput, TouchableOpacity, View, Text } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Container, Content, Picker } from 'native-base';
+import { Container, Content, Picker, Toast } from 'native-base';
 import { firebase } from '../../firebase/config';
 import styles from './styles';
 import FooterTab from '../Footer';
 import Spinner from '../Spinner';
 
-export default function StandardFormScreen() {
+export default function StandardFormScreen({extraData, userState}) {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
@@ -33,10 +33,11 @@ export default function StandardFormScreen() {
   const [isLoading, setLoading] = useState(false);
 
   const [entities, setEntities] = useState([]);
-
   const entityRef = firebase.firestore().collection('ucc-form');
 
   useEffect(() => {
+    setFullName(extraData.fullName)
+    setEmail(extraData.email)
     entityRef.orderBy('createdAt', 'desc').onSnapshot(
       (querySnapshot) => {
         const newEntities = [];
@@ -90,7 +91,13 @@ export default function StandardFormScreen() {
       })
       .catch((error) => {
         setLoading(false);
-        console.log(error);
+        Toast.show({
+          text: error,
+          buttonText: 'Okay',
+          type: "danger",
+          position: "top",
+          duration: 5000
+        })
       });
   };
 
@@ -419,9 +426,8 @@ export default function StandardFormScreen() {
                 selectedValue={energyAssistance}
                 onValueChange={(value) => setEnergyAssistance(value)}
               >
-                <Picker.Item label='Energy Assistance' value='key0' />
-                <Picker.Item label='LIHEAP/USF ' value='key1' />
-                <Picker.Item label='Page' value='key2' />
+                <Picker.Item label='Energy Assistance' value='Energy Assistance' />
+                <Picker.Item label='LIHEAP/USF' value='LIHEAP/USF' />
               </Picker>
             </View>
 
@@ -452,7 +458,7 @@ export default function StandardFormScreen() {
           </KeyboardAwareScrollView>
         </View>
       </Content>
-      <FooterTab />
+      <FooterTab user={userState} />
     </Container>
   );
 }

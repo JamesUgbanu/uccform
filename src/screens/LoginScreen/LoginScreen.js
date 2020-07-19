@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Toast } from 'native-base'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { firebase } from '../../firebase/config';
 import styles from './styles';
@@ -28,19 +29,38 @@ export default function LoginScreen({ navigation }) {
           .then((firestoreDocument) => {
             setLoading(false);
             if (!firestoreDocument.exists) {
-              alert('User does not exist anymore.');
+              Toast.show({
+                text: 'User does not exist anymore.',
+                buttonText: 'Okay',
+                type: "danger",
+                position: "top",
+                duration: 5000
+              })
               return;
             }
             const user = firestoreDocument.data();
-            //navigation.navigate('Home', { user });
           })
           .catch((error) => {
             setLoading(false);
+            Toast.show({
+              text: error,
+              buttonText: 'Okay',
+              type: "danger",
+              position: "top",
+              duration: 5000
+            })
             console.log(error);
           });
       })
       .catch((error) => {
         setLoading(false);
+        Toast.show({
+          text: 'Wrong email or password!',
+          buttonText: 'Okay',
+          type: "danger",
+          position: "top",
+          duration: 5000
+        })
         console.log(error);
       });
   };

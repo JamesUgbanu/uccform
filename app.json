@@ -1,0 +1,11 @@
+{
+  "name": "uccapp",
+  "displayName": "uccapp",
+  "expo": {
+    "sdkVersion": "38.0.0",
+    "name": "uccform",
+    "description": "",
+    "slug": "uccform",
+    "githubUrl": "https://github.com/JamesUgbanu/uccform"
+  }
+}

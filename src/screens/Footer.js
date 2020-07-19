@@ -1,18 +1,18 @@
 import React from 'react';
-import { Text} from 'react-native';
-import { Footer, FooterTab, Button, Icon } from 'native-base';
+import { Footer, FooterTab, Button, Icon, Text } from 'native-base';
 import { useNavigation  } from '@react-navigation/native';
 import { firebase } from '../firebase/config'
 
-export default function FooterFuction()  {
+export default function FooterFuction({user})  {
   const navigation = useNavigation()
+  
     const onSignOutPress = () => {
+      
         firebase
             .auth()
             .signOut()
             .then(() => {
-              forceUpdate();
-              //navigation.navigate('Login')
+              user()
             })
             .catch(error => {
                 console.log(error)
@@ -25,7 +25,7 @@ export default function FooterFuction()  {
               <Icon active name="apps" />
               <Text>Home</Text>
             </Button>
-            <Button vertical>
+            <Button vertical onPress={() => navigation.navigate('Profile')}>
               <Icon name="person" />
               <Text>Profile</Text>
             </Button>

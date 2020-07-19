@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Toast } from 'native-base'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { firebase } from '../../firebase/config';
 import styles from './styles';
@@ -38,15 +39,27 @@ export default function RegistrationScreen({ navigation }) {
           .set(data)
           .then(() => {
             setLoading(false);
-            navigation.navigate('Home', { user: data });
           })
           .catch((error) => {
-            alert(error);
+            setLoading(false);
+            Toast.show({
+              text: "Error. Please try again.",
+              buttonText: 'Okay',
+              type: "danger",
+              position: "top",
+              duration: 5000
+            })
           });
       })
       .catch((error) => {
         setLoading(false);
-        console.log(error);
+        Toast.show({
+          text: "One or more field are empty",
+          buttonText: 'Okay',
+          type: "danger",
+          position: "top",
+          duration: 5000
+        })
       });
   };
 

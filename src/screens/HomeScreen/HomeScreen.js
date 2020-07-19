@@ -5,7 +5,8 @@ import { Container, Text, Button, Content } from 'native-base';
 import FooterTab from '../Footer';
 import styles from './styles';
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ navigation , userState}) {
+
   return (
     <Container>
       <Content>
@@ -30,7 +31,7 @@ export default function HomeScreen({ navigation }) {
           </KeyboardAwareScrollView>
         </View>
       </Content>
-      <FooterTab />
+      <FooterTab user={userState} />
     </Container>
   );
 }

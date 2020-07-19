@@ -3,13 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { YellowBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { decode, encode } from 'base-64';
+import { Root } from 'native-base'
+// import { Expo } from 'Expo';
 import {
   LoginScreen,
   HomeScreen,
   RegistrationScreen,
   StandardFormScreen,
+  ProfileScreen
 } from './src/screens';
-import { decode, encode } from 'base-64';
 import { firebase } from './src/firebase/config';
 import Spinner from './src/screens/Spinner'
 
@@ -26,6 +29,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   YellowBox.ignoreWarnings(['Setting a timer']);
+  YellowBox.ignoreWarnings(['Animated: `useNativeDriver`']);
 
   useEffect(() => {
        Expo.Font.loadAsync({
@@ -54,19 +58,29 @@ export default function App() {
     });
   }, []);
 
+  const changeUserState = () => {
+        setUser(null)
+  }
+
   if (loading) {
     return <Spinner />;
   }
 
   return (
+    <Root>
     <NavigationContainer>
       <Stack.Navigator>
         {user ? (
           <>
             <Stack.Screen name='Home'>
-              {(props) => <HomeScreen {...props} extraData={user} />}
+              {(props) => <HomeScreen {...props} extraData={user} userState={changeUserState} />}
             </Stack.Screen>
-            <Stack.Screen name='Standard Form' component={StandardFormScreen} />
+            <Stack.Screen name='Standard Form'>
+              {(props) => <StandardFormScreen {...props} extraData={user} userState={changeUserState} />}
+            </Stack.Screen>
+            <Stack.Screen name='Profile'>
+              {(props) => <ProfileScreen {...props} extraData={user}  userState={changeUserState} />}
+            </Stack.Screen>
           </>
         ) : (
           <>
@@ -76,5 +90,6 @@ export default function App() {
         )}
       </Stack.Navigator>
     </NavigationContainer>
+    </Root>
   );
 }
