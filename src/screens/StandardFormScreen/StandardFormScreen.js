@@ -12,7 +12,7 @@ export default function StandardFormScreen({extraData, userState}) {
   const [email, setEmail] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
   const [telephone, setTelephone] = useState('');
-  const [street, setStreet] = useState('');
+ // const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [emergencyContact, setEmergencyContact] = useState('');
@@ -32,36 +32,35 @@ export default function StandardFormScreen({extraData, userState}) {
   const [income, setIncome] = useState('');
   const [isLoading, setLoading] = useState(false);
 
-  const [entities, setEntities] = useState([]);
-  const entityRef = firebase.firestore().collection('ucc-form');
+  //const [entities, setEntities] = useState([]);
+  //const entityRef = firebase.firestore().collection('ucc-form');
 
   useEffect(() => {
     setFullName(extraData.fullName)
     setEmail(extraData.email)
-    entityRef.orderBy('createdAt', 'desc').onSnapshot(
-      (querySnapshot) => {
-        const newEntities = [];
-        querySnapshot.forEach((doc) => {
-          const entity = doc.data();
-          entity.id = doc.id;
-          newEntities.push(entity);
-        });
-        setEntities(newEntities);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    // entityRef.orderBy('createdAt', 'desc').onSnapshot(
+    //   (querySnapshot) => {
+    //     const newEntities = [];
+    //     querySnapshot.forEach((doc) => {
+    //       const entity = doc.data();
+    //       entity.id = doc.id;
+    //       newEntities.push(entity);
+    //     });
+    //     setEntities(newEntities);
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
   }, []);
   const onSubmitPress = () => {
     setLoading(true);
-    const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+    //const timestamp = firebase.firestore.FieldValue.serverTimestamp();
     const data = {
       fullName,
       email,
       streetAddress,
       telephone,
-      street,
       city,
       zipCode,
       emergencyContact,
@@ -78,27 +77,43 @@ export default function StandardFormScreen({extraData, userState}) {
       education,
       housing,
       energyAssistance,
-      income,
-      // authorID: userID,
-      createdAt: timestamp,
+      income
     };
-    entityRef
-      .add(data)
-      .then((_doc) => {
-        setLoading(false);
-        setEntityText('');
-        Keyboard.dismiss();
-      })
-      .catch((error) => {
-        setLoading(false);
-        Toast.show({
-          text: error,
-          buttonText: 'Okay',
-          type: "danger",
-          position: "top",
-          duration: 5000
+    
+    // entityRef
+    //   .add(data)
+    //   .then((_doc) => {
+    //     setLoading(false);
+    //     setEntityText('');
+    //     Keyboard.dismiss();
+    //   })
+    //   .catch((error) => {
+    //     setLoading(false);
+    //     Toast.show({
+    //       text: error,
+    //       buttonText: 'Okay',
+    //       type: "danger",
+    //       position: "top",
+    //       duration: 5000
+    //     })
+    //   });
+
+      firebase.database().ref('StandardFormUsers/').push(data)
+      .then(()=>{
+            //success callback
+                  setLoading(false);
+              Toast.show({
+                text: 'Submitted Successfully',
+                buttonText: 'Okay',
+                type: "success",
+                position: "top",
+                duration: 5000
+              })
+        }).catch((error)=>{
+            //error callback
+            console.log(error)
         })
-      });
+
   };
 
   if (isLoading) {
@@ -152,7 +167,7 @@ export default function StandardFormScreen({extraData, userState}) {
               underlineColorAndroid='transparent'
               autoCapitalize='none'
             />
-            <TextInput
+            {/* <TextInput
               style={styles.input}
               placeholderTextColor='#aaaaaa'
               placeholder='Street'
@@ -160,7 +175,7 @@ export default function StandardFormScreen({extraData, userState}) {
               value={street}
               underlineColorAndroid='transparent'
               autoCapitalize='none'
-            />
+            /> */}
             <TextInput
               style={styles.input}
               placeholderTextColor='#aaaaaa'
